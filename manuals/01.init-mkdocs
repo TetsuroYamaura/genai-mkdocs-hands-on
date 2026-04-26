@@ -23,3 +23,13 @@ uv run mkdocs serve --livereload
 ```bash
 RENDER_SVG=1 RENDER_PNG=1 ENABLE_PDF=1 uv run mkdocs build
 ```
+
+## MermaidのAIによる記述
+
+```bash
+ @docs/index.md にMermaidで、GitHubを利用したPull Requestを利用したレビューワークフローをフローチャートで記述してください。
+ ```
+
+ ```bash
+ 登場人物と役割が不明確なのでボックスによるスイムレーンを追加してアクターを明確にしてください。GitHub Actionsのようなシステムによる振る舞いもアクターとします。
+ ```
