@@ -28,9 +28,15 @@ uv run mkdocs serve --livereload
  登場人物と役割が不明確なのでボックスによるスイムレーンを追加してアクターを明確にしてください。GitHub Actionsのようなシステムによる振る舞いもアクターとします。
  ```
 
-### SVGへ変換
+### PDFへ変換
 
 ```bash
-RENDER_SVG=1 uv run mkdocs build
+ENABLE_PDF=1 uv run mkdocs build
+```
+
+
+
+```bash
+RENDER_SVG=1 ENABLE_PDF=1 uv run mkdocs build
 ```
 
