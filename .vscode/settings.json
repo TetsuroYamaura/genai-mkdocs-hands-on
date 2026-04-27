@@ -5,6 +5,7 @@
                 "icsmedia",
                 "mkdocs",
                 "rulesync",
-                "textlint"
+                "textlint",
+                "venv"
         ]
 }

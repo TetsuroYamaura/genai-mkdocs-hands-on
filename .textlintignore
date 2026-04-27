@@ -1,0 +1,6 @@
+# ビルド出力
+site/
+
+# サードパーティ
+node_modules/
+.venv/
