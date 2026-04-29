@@ -1,8 +1,9 @@
----
-title: Mermaid
----
+# Mermaid
 
 Mermaidはテキストベースで図を記述できるツールである。本プロジェクトでは推奨ツールとして位置づけている。
+
+- [Mermaid公式ドキュメント](https://mermaid.js.org/)
+- [Mermaid Live Editor](https://mermaid.live/)
 
 ## 基本的な使い方
 
@@ -166,8 +167,3 @@ gantt
     section リリース
     デプロイ準備   :deploy, after test, 7d
 ```
-
-## 参考リンク
-
-- [Mermaid公式ドキュメント](https://mermaid.js.org/)
-- [Mermaid Live Editor](https://mermaid.live/)
