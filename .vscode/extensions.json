@@ -1,5 +1,12 @@
 {
   "recommendations": [
-    "3w36zj6.textlint"
+    "3w36zj6.textlint",
+    "yzhang.markdown-all-in-one",
+    "davidanson.vscode-markdownlint",
+    "bierner.markdown-mermaid",
+    "hediet.vscode-drawio",
+    "marp-team.marp-vscode",
+    "tomoki1207.pdf",
+    "ms-ceintl.vscode-language-pack-ja"
   ]
 }
