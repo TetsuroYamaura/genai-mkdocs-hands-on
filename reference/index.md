@@ -2,5 +2,5 @@
 
 ```bash
 rm -rf docs
-cp -rf reference/99.result/docs docs
+cp -rf reference/99.result/docs/. docs
 ```
