@@ -1,5 +1,12 @@
 # Hello, MkDocs
 
+## 強調表示など
+
+- *イタリック*
+- **太字**
+- ***太字イタリック***
+- ~~取り消し線~~   ← GFM 拡張
+
 ## 箇条書き
 
 ### 番号なし
@@ -20,9 +27,28 @@
 |row1|1-1|1-2|
 |row2|2-1|2-2|
 
-## 画像
+## リンクや画像
+
+[ref]: https://github.com/genai-docs/genai-mkdocs-hands-on
+
+- [表示テキスト](https://github.com/genai-docs/genai-mkdocs-hands-on)
+- [ツールチップ付き](https://github.com/genai-docs/genai-mkdocs-hands-on "title")
+- [参照形式][ref]
 
 ![Alt text](https://picsum.photos/300/200)
+
+## コードブロック
+
+`inline code`
+
+```csharp
+public void Hello() => Console.WriteLine("Hi");
+```
+
+## 引用
+
+> 引用文です
+>> ネストした引用
 
 ## GitHub Pull Request を用いたレビューワークフロー
 
