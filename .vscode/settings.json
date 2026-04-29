@@ -38,12 +38,6 @@
     "winget",
     "yzhang"
   ],
-  "textlint.configPath": ".textlintrc.json",
-  "textlint.autoFixOnSave": false,
-  "textlint.run": "onType",
-  "chat.tools.terminal.autoApprove": {
-    "pnpm": true
-  },
   "chat.useAgentsMdFile": false,
   "markdown.marp.themes": [
     "./docs/スライド/theme/marp.css"
