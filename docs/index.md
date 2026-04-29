@@ -1,77 +1,82 @@
-# 生成AI時代のドキュメント基盤
+# Hello, MkDocs
 
-このリポジトリは、以下の2つをサンプルとして提供する。
+## 箇条書き
 
-- **ドキュメントを記述する基盤**（Markdown + Mermaid + Draw.io + textlint + MkDocs）
-- **記述した文書を公開する仕組み**（GitHub Pages / Azure Blob Storage静的サイト）
+### 番号なし
 
-採用している技術の一覧は [技術スタック](tech-stack.md) を参照する。
+- Item A
+- Item B
 
-## 3つの実行環境
+### 番号あり
 
-用途に応じて、次の3形態でドキュメント執筆環境を利用できる。
+1. Item 1
+2. Item 2
+    1. Item 2.1
 
-| 形態 | 想定用途 | 前提 |
-|------|---------|------|
-| ローカル（Linux / WSL） | 普段の執筆・プレビュー | `mise`でツールを揃える |
-| DevContainer | VS Code で隔離環境を使いたい | Docker + VS Code + Dev Containers拡張 |
-| code-server | ブラウザだけでハンズオンしたい | Docker（ローカル）または Azure（配布） |
+## テーブル
 
-## ローカル環境（Linux / WSL）
+|rows|column1|column2|
+|--|--|--|
+|row1|1-1|1-2|
+|row2|2-1|2-2|
 
-`mise.toml`でPython / uv / Node.js / pnpmのバージョンを固定している。以下の手順でツールを揃える。
+## 画像
 
-### 1.mise のインストール
+![Alt text](https://picsum.photos/300/200)
 
-```bash
-curl https://mise.run | sh
-echo 'eval "$(~/.local/bin/mise activate bash)"' >> ~/.bashrc
-exec "$SHELL"
+## GitHub Pull Request を用いたレビューワークフロー
+
+```mermaid
+flowchart TB
+  subgraph 開発者["開発者（コントリビューター）"]
+    direction TB
+    D1[default ブランチを最新化] --> D2[作業用ブランチを作成]
+    D2 --> D3[ローカルで実装とコミット] --> D4[リモートへ push]
+    D4 --> D5[GitHub 上で Pull Request を作成] --> D6[レビュアーを指名 / 下書き解除 / 再依頼]
+    D6 --> D7[レビュー中は待機]
+    D7 --> D8[指摘内容を反映し再 push]
+    D7 --> D9[必須チェック通過と承認のあと マージ可能なら マージを実行 ※1]
+    D8 --> D7
+    D9 --> D10[ローカルで追従 必要なら リモートの作業ブランチを削除 ※2]
+  end
+
+  subgraph レビュアー["レビュアー（指名・CODEOWNERS 等）"]
+    direction TB
+    R1[通知または PR 一覧から起票の PR を開く] --> R2[差分と会話 チェック状況を確認]
+    R2 --> R3{方針}
+    R3 -->|追加の修正依頼| R4[コメントまたは Request changes]
+    R3 -->|問題なし| R5[Approve 承認]
+    R3 -->|質問| R6[会話欄に返信 必要なら解決]
+    R4 --> D8
+    R6 --> R2
+  end
+
+  subgraph ギ["GitHub（リポジトリ / プロジェクトホスト）"]
+    direction TB
+    H1[PR ベース ターゲット 会話 レビュー画面を提供] --> H2[保護ルール 必須レビュー 必須ステータスを適用] --> H3[マージ UI とマージ方針の選択] --> H4[（任意） マージ後のブランチ削除を提案] --> H5[default へ変更を取り込み]
+  end
+
+  subgraph ガ["GitHub Actions（CI ・自動化）"]
+    direction TB
+    A1[push または pull_request 等のイベント] --> A2[ワークフロー定義に従いジョブを実行] --> A3{ジョブは成功したか} -->|失敗| A4[失敗の詳細を Checks に掲出] -->|成功| A5[GitHub 上でステータスチェックを成功に更新]
+  end
+
+  D4 -.->|プッシュ| A1
+  D5 -.->|PR 掲出| H1
+  D6 -.->|依頼| R1
+  A2 -.->|PR の Checks に反映| R2
+  D8 -.->|再 push| A1
+  A4 -.->|修正が必要| D8
+  A5 -.->|必須なら| H2
+  R5 -.->|承認記録| H2
+  D9 -.->|マージ操作| H3
+  H3 -.->|マージ| H5
+  H4 -.->|掃除| D10
 ```
 
-### 2.依存関係のインストール
+※1 多くのチームでは PR 作者やレビュアーなど **書き込み権限＋ポリシー** を満たした人がマージします。  
+※2 リモートのブランチ削除は、GitHub 上の「Delete branch」やリポジトリ設定に委ねる場合もあります。
 
-Debian / Ubuntu系ではまずWeasyPrintやPlaywrightのネイティブ依存（Chromium、Pango、Cairo、日本語フォントなど）をaptで導入する。`sudo`が必要で、初回のみ実行する。
+## SVG
 
-```bash
-mise run setup-system
-```
-
-続いてランタイムとPython / Nodeの依存関係をまとめて取得する。
-
-```bash
-mise run setup      # mise install / uv sync / Playwright / pnpm install をまとめて実行
-```
-
-macOSやWindows、その他のディストリビューションでは `setup-system`は対象外である。該当環境ではネイティブ依存を個別に導入する必要があるため、DevContainerまたはcode-serverの利用を推奨する。
-
-### 3.ドキュメントのプレビュー
-
-```bash
-pnpm mkdocs         # http://127.0.0.1:8000 でライブプレビュー
-```
-
-## DevContainer
-
-VS Codeの**Dev Containers**拡張を導入し、リポジトリを開いた際に表示される「Reopen in Container」を選ぶと、`.devcontainer/devcontainer.json`が `.devcontainer/Dockerfile`をビルドして起動する。
-
-当DockerfileはGHCRに公開済みの下記ハンズオンイメージをベースにしており、ビルドはベースイメージのpullのみで完了するためホスト側に`mise`やPythonを入れずに同じツール構成で作業できる。
-
-- ghcr.io/genai-docs/genai-docs-env:latest
-
-ポート8000は自動フォワードされ、MkDocsライブプレビューにブラウザでアクセスできる。
-
-## code-server（ブラウザ版 VS Code）
-
-ハンズオン配布や、ローカルに開発ツールを入れたくない場合に使う。実行環境（Dockerイメージ定義、起動・ Azureデプロイスクリプト、Bicep、CI）は別リポジトリ [genai-docs/genai-docs-env](https://github.com/genai-docs/genai-docs-env) に切り出している。該当リポジトリで `nr run:local` / `nr run:remote` / `nr azure:deploy` を実行する。
-
-当リポジトリのDevContainerは同イメージ `ghcr.io/genai-docs/genai-docs-env:latest` をベースとして使うため、イメージ更新はenvリポジトリ側で完結する。
-
-Azure上に共有ハンズオン環境を展開する手順は[実行環境](実行環境/index.md)にまとめている。
-
-## 詳しくは
-
-- [ユーザーガイド](usage-guide.md)
-- [実行環境の概要](実行環境/index.md)
-- [アーキテクチャー](アーキテクチャー/index.md)
-- [サンプル一覧](サンプル/index.md)
+![GitFlow](gitflow.drawio.svg)
