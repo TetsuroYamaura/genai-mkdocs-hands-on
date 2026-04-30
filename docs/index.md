@@ -1,6 +1,6 @@
-# はじめに by yamaura
+# はじめに by 山浦
 
-「生成AI時代のドキュメント基盤」ハンズオンの資料です。
+「生成AI時代のドキュメント基盤」ハンズオンの資料である。
 
 ## 箇条書き
 
@@ -20,15 +20,15 @@
 - *イタリック*
 - **太字**
 - ***太字イタリック***
-- ~~取り消し線~~   ← GFM 拡張
+- ~~取り消し線~~   ← GFM拡張
 
 ## テーブル
 
-|品名|単価|数量|価格|
-|--|--|--|--|
-|りんご|200円|3|600円|
-|みかん|150円|5|750円|
-|ぶどう|400円|2|800円|
+|品名|単価|数量|
+|--|--|--|
+|りんご|200円|3|
+|みかん|150円|5|
+|ぶどう|400円|2|
 
 ## リンクと画像
 
@@ -53,15 +53,3 @@ public void Hello() => Console.WriteLine("Hi");
 
 > 引用文です
 >> ネストした引用
-
-!!! note
-
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla et euismod
-    nulla. Curabitur feugiat, tortor non consequat finibus, justo purus auctor
-    massa, nec semper lorem quam in massa.
-
-!!! danger
-
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla et euismod nulla.
-    Curabitur feugiat, tortor non consequat finibus, justo purus auctor massa, 
-    nec semper lorem quam in massa.
